@@ -10,6 +10,6 @@ class FunCommands(commands.Cog, name="Fun Commands"):
 
     @commands.command()
     async def ping(self, ctx):
-        await ctx.send(Message.PING_RESPONSE)
+        await ctx.send(Message.PingResponse)
 
 

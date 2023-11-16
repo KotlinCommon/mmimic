@@ -12,6 +12,6 @@ class GeneralCommands(commands.Cog, name="General Commands"):
         """Rolls a dice with a specified number of sides."""
         roll = rollDice(sides)
         if roll is None:
-            await ctx.send(Message.DICE_ROLL_INVALID_SIDES)
+            await ctx.send(Message.DiceRollInvalidSides)
         else:
             await ctx.send(Message.format_dice_roll_result(sides, roll))

@@ -17,6 +17,6 @@ class DirectMessage:
 
     async def response(self, message):
         # Placeholder for response generation logic
-        return f"{Message.DIRECT_MESSAGE_RECEIVED}{message}"
+        return f"{Message.DirectMsgReceived}{message}"
 
         # Example: return await self.openai_client.askGpt3(message_content)

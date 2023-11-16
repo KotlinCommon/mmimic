@@ -8,14 +8,17 @@ from src.python.application.environment.Environment import Environment
 from src.python.domain.events.Events import Events
 from src.python.domain.commands.Commands import Commands
 
+from src.python.application.client.Client import Client
+
 
 class MimicBot:
     def __init__(self, commandPrefix="!"):
         buildEnvironment()
         self.environment = Environment.load()
 
-        self.bot = commands.Bot(command_prefix=commandPrefix, intents=setupIntents())
+        self.client = Client(self.environment.urlBackend)
 
+        self.bot = commands.Bot(command_prefix=commandPrefix, intents=setupIntents())
         self.events = Events(self.bot)
         self.commands = Commands(self.bot, self)
 
