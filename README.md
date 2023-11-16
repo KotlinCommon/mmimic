@@ -4,7 +4,7 @@
 
 #### project creating and compiled in "Pycharm"
 
-#### Python-3.12
+#### Python-3.10
 
 #### Requirements in [requirements.txt](requirements.txt)
 
