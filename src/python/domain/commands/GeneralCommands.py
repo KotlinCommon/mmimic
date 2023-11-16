@@ -8,10 +8,10 @@ class GeneralCommands(commands.Cog, name="General Commands"):
         self.bot = bot
 
     @commands.command(name='rollDice')
-    async def roll_dice_command(self, ctx, sides: int = 6):
+    async def rollDice(self, ctx, sides: int = 6):
         """Rolls a dice with a specified number of sides."""
         roll = rollDice(sides)
         if roll is None:
-            await ctx.send("The number of sides must be at least 1.")
+            await ctx.send(Message.DICE_ROLL_INVALID_SIDES)
         else:
-            await ctx.send(f"You rolled a {sides}-sided dice and got: {roll}")
+            await ctx.send(Message.format_dice_roll_result(sides, roll))
