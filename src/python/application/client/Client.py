@@ -6,48 +6,47 @@ from src.python.domain.response.Response import Response
 
 
 class Client:
-    def __init__(self, base_url):
-        self.base_url = base_url
+    def __init__(self, baseUrl):
+        self.baseUrl = baseUrl
+        self.bearerToken = None
 
-    def send_request(self, method, endpoint, json_data=None):
+    def send_request(self, method, endpoint, jsonData=None):
         """
          Sends an HTTP request and returns a Response object.
          """
         try:
-            url = f"{self.base_url}{endpoint}"
+            url = f"{self.baseUrl}{endpoint}"
             headers = {'Content-Type': 'application/json'}
-            if json_data:
-                response = requests.request(method, url, data=json.dumps(json_data), headers=headers)
+            if jsonData:
+                response = requests.request(method, url, data=json.dumps(jsonData), headers=headers)
             else:
                 response = requests.request(method, url, headers=headers)
             response.raise_for_status()
 
             # Check the content type of the response
-            content_type = response.headers.get('Content-Type', '')
+            contentType = response.headers.get('Content-Type', '')
 
-            if 'application/json' in content_type:
-                # Process JSON response
+            if 'application/json' in response.headers.get('Content-Type', ''):
                 try:
-                    return Response(response.json())
+                    return Response(value=response.json(), headers=response.headers)
                 except json.JSONDecodeError:
-                    return Response(None, error="Invalid JSON response from server")
+                    return Response(value=None, error=ErrorMessage.TokenNotFound, headers=response.headers)
             else:
-                # Process non-JSON response
-                return Response(response.text)
+                return Response(value=response.text, headers=response.headers)
 
         except requests.HTTPError as http_err:
-            return Response(None, error=str(http_err))
+            return Response(value=None, error=str(http_err), headers=response.headers)
         except Exception as err:
-            return Response(None, error=str(err))
+            return Response(value=None, error=str(err), headers=response.headers)
 
     def get(self, endpoint):
         """Sends a GET request."""
         return self.send_request('GET', endpoint)
 
-    def post(self, endpoint, json_data):
+    def post(self, endpoint, jsonData):
         """Sends a POST request."""
-        return self.send_request('POST', endpoint, json_data)
+        return self.send_request('POST', endpoint, jsonData)
 
-    def put(self, endpoint, json_data):
+    def put(self, endpoint, jsonData):
         """Sends a PUT request."""
-        return self.send_request('PUT', endpoint, json_data)
+        return self.send_request('PUT', endpoint, jsonData)

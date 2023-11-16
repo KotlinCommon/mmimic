@@ -1,4 +1,3 @@
-import discord
 from discord.ext import commands
 import asyncio
 
@@ -9,6 +8,8 @@ from src.python.domain.events.Events import Events
 from src.python.domain.commands.Commands import Commands
 
 from src.python.application.client.Client import Client
+from src.python.domain.network.authenticate.Authenticate import authenticate
+from src.python.domain.network.authenticate.Credential import Credential
 
 
 class MimicBot:
@@ -16,11 +17,19 @@ class MimicBot:
         buildEnvironment()
         self.environment = Environment.load()
 
-        self.client = Client(self.environment.urlBackend)
-
         self.bot = commands.Bot(command_prefix=commandPrefix, intents=setupIntents())
         self.events = Events(self.bot)
         self.commands = Commands(self.bot, self)
+
+        self.client = Client(self.environment.urlBackend)
+        self.client.bearerToken = self.authenticateBot()
+
+    def authenticateBot(self):
+        credentials = Credential(
+            identifier=self.environment.identifier,
+            password=self.environment.password
+        ).serializable()
+        return authenticate(self.client, credentials)
 
     async def setup(self):
         await self.commands.registerCommands()
