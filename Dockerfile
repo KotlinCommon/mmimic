@@ -15,4 +15,4 @@ RUN pip install -r requirements.txt
 #RUN /app/venv/bin/python setup.py install
 
 # Specify the command to run your application
-CMD ["python", "/app/src/python/application/Application.py"]
+CMD ["python", "/app/main.py"]

@@ -1,10 +1,10 @@
-# mimic-Storyteller-bot-discord
+# mimic-storyteller-bot-discord
 
 - project based on creating and manipulating bots for discord
 
 #### project creating and compiled in "Pycharm"
 
-#### Python3.10.12
+#### Python-3.12
 
 #### Requirements in [requirements.txt](requirements.txt)
 

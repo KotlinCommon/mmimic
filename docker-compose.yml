@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   discord-bot:
-    container_name: 'mimic-storyteller-bot'
+    container_name: 'mimic-st-bot'
     environment:
       - TOKEN_DISCORD=${TOKEN_DISCORD}
     build: .
@@ -10,7 +10,7 @@ services:
       - "80:8080"
       - "443:8443"
     networks:
-      - mimic-network
+      - mimic-st-network
 networks:
-  mimic-network:
-        name: "mimic-storyteller-network"
+  mimic-st-network:
+    name: "mimic-st-network"
