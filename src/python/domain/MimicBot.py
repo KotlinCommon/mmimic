@@ -24,6 +24,7 @@ class MimicBot:
         self.client = Client(self.environment.urlBackend)
         self.client.bearerToken = self.authenticateBot()
 
+
     def authenticateBot(self):
         credentials = Credential(
             identifier=self.environment.identifier,

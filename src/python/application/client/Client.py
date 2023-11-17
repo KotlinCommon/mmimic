@@ -10,10 +10,11 @@ class Client:
         self.baseUrl = baseUrl
         self.bearerToken = None
 
-    def send_request(self, method, endpoint, jsonData=None):
+    def request(self, method, endpoint, jsonData=None):
         """
-         Sends an HTTP request and returns a Response object.
-         """
+            Sends an HTTP request and returns a Response object.
+            """
+        response = None
         try:
             url = f"{self.baseUrl}{endpoint}"
             headers = {'Content-Type': 'application/json'}
@@ -26,7 +27,7 @@ class Client:
             # Check the content type of the response
             contentType = response.headers.get('Content-Type', '')
 
-            if 'application/json' in response.headers.get('Content-Type', ''):
+            if 'application/json' in contentType:
                 try:
                     return Response(value=response.json(), headers=response.headers)
                 except json.JSONDecodeError:
@@ -35,18 +36,23 @@ class Client:
                 return Response(value=response.text, headers=response.headers)
 
         except requests.HTTPError as http_err:
-            return Response(value=None, error=str(http_err), headers=response.headers)
+            errorMessage = str(http_err)
         except Exception as err:
-            return Response(value=None, error=str(err), headers=response.headers)
+            errorMessage = str(err)
 
-    def get(self, endpoint):
-        """Sends a GET request."""
-        return self.send_request('GET', endpoint)
+        # Return error response
+        headers = response.headers if response is not None else {}
+        return Response(value=None, error=errorMessage, headers=headers)
+
+    def get(self, endpoint, params=None):
+        if params:
+            endpoint += '?' + '&'.join([f"{key}={value}" for key, value in params.items()])
+        return self.request('GET', endpoint)
 
     def post(self, endpoint, jsonData):
         """Sends a POST request."""
-        return self.send_request('POST', endpoint, jsonData)
+        return self.request('POST', endpoint, jsonData)
 
     def put(self, endpoint, jsonData):
         """Sends a PUT request."""
-        return self.send_request('PUT', endpoint, jsonData)
+        return self.request('PUT', endpoint, jsonData)
