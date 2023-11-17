@@ -1,12 +1,14 @@
 import discord
 
-from src.python.domain.events.DirectMessage import DirectMessage
+from src.python.domain.events.DirectMessage.DirectMessage import DirectMessage
 
 
 class Events:
-    def __init__(self, bot):
+    def __init__(self, bot, client, userState):
         self.bot = bot
-        self.directMessage = DirectMessage(self.bot)
+        self.client = client
+        self.userState = userState
+        self.directMessage = DirectMessage(self.bot, self.client, self.userState)
         self.registerEvents()
 
     def registerEvents(self):
@@ -18,7 +20,8 @@ class Events:
         async def on_message(message):
             author = message.author
             channel = message.channel
-            print(author, "in channel (", channel, ") send Message:", message.content)
+            userId = author.id
+            print(userId, " - ", author, "in channel (", channel, ") send Message:", message.content)
 
             # Check if the message is a DM
             if isinstance(message.channel, discord.DMChannel):

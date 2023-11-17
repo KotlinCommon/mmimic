@@ -8,6 +8,7 @@ from src.python.domain.events.Events import Events
 from src.python.domain.commands.Commands import Commands
 
 from src.python.application.client.Client import Client
+from src.python.domain.events.UserState import UserState
 from src.python.domain.network.authenticate.Authenticate import authenticate
 from src.python.domain.network.authenticate.Credential import Credential
 
@@ -17,13 +18,13 @@ class MimicBot:
         buildEnvironment()
         self.environment = Environment.load()
 
-        self.bot = commands.Bot(command_prefix=commandPrefix, intents=setupIntents())
-        self.events = Events(self.bot)
-        self.commands = Commands(self.bot, self)
-
         self.client = Client(self.environment.urlBackend)
         self.client.bearerToken = self.authenticateBot()
 
+        self.bot = commands.Bot(command_prefix=commandPrefix, intents=setupIntents())
+        self.userState = UserState()
+        self.events = Events(self.bot, self.client, self.userState)
+        self.commands = Commands(self.bot, self)
 
     def authenticateBot(self):
         credentials = Credential(

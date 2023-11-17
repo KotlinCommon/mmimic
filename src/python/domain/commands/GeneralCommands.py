@@ -14,4 +14,4 @@ class GeneralCommands(commands.Cog, name="General Commands"):
         if roll is None:
             await ctx.send(Message.DiceRollInvalidSides)
         else:
-            await ctx.send(Message.format_dice_roll_result(sides, roll))
+            await ctx.send(Message.formatDiceRollResult(sides, roll))

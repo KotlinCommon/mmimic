@@ -18,6 +18,10 @@ class Client:
         try:
             url = f"{self.baseUrl}{endpoint}"
             headers = {'Content-Type': 'application/json'}
+
+            if self.bearerToken:
+                headers['Authorization'] = self.bearerToken
+
             if jsonData:
                 response = requests.request(method, url, data=json.dumps(jsonData), headers=headers)
             else:
