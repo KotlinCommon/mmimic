@@ -1,6 +1,6 @@
 import discord
 
-from src.python.domain.events.DirectMessage.RegisterUserDirect import registerUserDirect
+from src.python.domain.events.directMessage.RegisterUserDirect import registerUserDirect
 from src.python.domain.message.Message import Message
 
 
@@ -14,7 +14,7 @@ class DirectMessage:
         if message.author.bot:
             return
         if self.userState.getUserState(message.author.id) == "REGISTERING":
-            return  # Ignore the message as it's part of an ongoing registration
+            return
 
         response = await self.verifyMessage(message)
         if response:

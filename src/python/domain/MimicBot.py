@@ -24,13 +24,14 @@ class MimicBot:
         self.bot = commands.Bot(command_prefix=commandPrefix, intents=setupIntents())
         self.userState = UserState()
         self.events = Events(self.bot, self.client, self.userState)
-        self.commands = Commands(self.bot, self)
+        self.commands = Commands(self.bot, self.client, self.userState)
 
     def authenticateBot(self):
         credentials = Credential(
             identifier=self.environment.identifier,
             password=self.environment.password
         ).serializable()
+        print(f"{credentials}")
         return authenticate(self.client, credentials)
 
     async def setup(self):

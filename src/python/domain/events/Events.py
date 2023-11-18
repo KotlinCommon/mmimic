@@ -1,6 +1,6 @@
 import discord
 
-from src.python.domain.events.DirectMessage.DirectMessage import DirectMessage
+from src.python.domain.events.directMessage.DirectMessage import DirectMessage
 
 
 class Events:
