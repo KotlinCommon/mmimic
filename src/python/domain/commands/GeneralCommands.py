@@ -14,13 +14,11 @@ class GeneralCommands(commands.Cog, name="General Commands"):
     @commands.command(name='register')
     async def register(self, ctx):
         user = ctx.message.author
-
         try:
-            dm_channel = await user.create_dm()
-            await self.start_registration_process(user, dm_channel)
-
+            dmChannel = await user.create_dm()
+            await self.startRegistrationProcess(user, dmChannel)
         except Exception as e:
-            await ctx.send(f"An error occurred: {e}")
+            await ctx.send(Message.Error.formatError(e))
 
     @commands.command(name='rollDice')
     async def rollDice(self, ctx, sides: int = 6):
@@ -31,8 +29,8 @@ class GeneralCommands(commands.Cog, name="General Commands"):
         else:
             await ctx.send(Message.formatDiceRollResult(sides, roll))
 
-    async def start_registration_process(self, user, dm_channel):
-        fake_message = type('obj', (object,), {'author': user, 'channel': dm_channel})
-        message_to_return = await registerUserDirect(self, self.bot, self.client, fake_message, self.userState)
-        if message_to_return:
-            await dm_channel.send(message_to_return)
+    async def startRegistrationProcess(self, user, dmChannel):
+        fakeMessage = type('obj', (object,), {'author': user, 'channel': dmChannel})
+        messageToReturn = await registerUserDirect(self, self.bot, self.client, fakeMessage, self.userState)
+        if messageToReturn:
+            await dmChannel.send(messageToReturn)

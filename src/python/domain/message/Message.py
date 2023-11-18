@@ -2,6 +2,8 @@ from enum import Enum
 
 
 class Message(Enum):
+    Error = "An error occurred:"
+
     # Messages related to Events
     DirectMsgReceived = "Received your message:"
 
@@ -23,11 +25,16 @@ class Message(Enum):
         return self.value
 
     @staticmethod
+    def formatError(inputContent):
+        """Formats the invalid input message."""
+        return Message.Error.value.format(input=inputContent)
+
+    @staticmethod
     def formatDiceRollResult(sides, result):
         """Formats the dice roll result message."""
         return Message.DiceRollResult.value.format(sides=sides, result=result)
 
     @staticmethod
-    def formatInvalidInput(input_content):
+    def formatInvalidInput(inputContent):
         """Formats the invalid input message."""
-        return Message.InvalidInput.value.format(input=input_content)
+        return Message.InvalidInput.value.format(input=inputContent)

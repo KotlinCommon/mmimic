@@ -31,7 +31,6 @@ class MimicBot:
             identifier=self.environment.identifier,
             password=self.environment.password
         ).serializable()
-        print(f"{credentials}")
         return authenticate(self.client, credentials)
 
     async def setup(self):
