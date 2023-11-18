@@ -6,8 +6,7 @@ from src.python.domain.util.ValidEmail import ValidEmail
 class Question(Enum):
     RegisterUser = [
         ("What's your name?", None),
-        #("What's your email?", ValidEmail)
-        ("What's your email?", None)
+        ("What's your email?", ValidEmail)
     ]
 
     def __str__(self):

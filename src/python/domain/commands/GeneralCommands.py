@@ -1,6 +1,6 @@
 from discord.ext import commands
 
-from src.python.domain.events.directMessage.RegisterUserDirect import registerUserDirect
+from src.python.domain.message.channelMessage.RegisterUser import registerUser
 from src.python.domain.message.Message import Message
 from src.python.domain.util.RollDice import rollDice
 
@@ -13,12 +13,7 @@ class GeneralCommands(commands.Cog, name="General Commands"):
 
     @commands.command(name='register')
     async def register(self, ctx):
-        user = ctx.message.author
-        try:
-            dmChannel = await user.create_dm()
-            await self.startRegistrationProcess(user, dmChannel)
-        except Exception as e:
-            await ctx.send(Message.Error.formatError(e))
+        await ctx.send(await registerUser(self, self.bot, self.client, self.userState, ctx.message))
 
     @commands.command(name='rollDice')
     async def rollDice(self, ctx, sides: int = 6):
@@ -28,9 +23,3 @@ class GeneralCommands(commands.Cog, name="General Commands"):
             await ctx.send(Message.DiceRollInvalidSides)
         else:
             await ctx.send(Message.formatDiceRollResult(sides, roll))
-
-    async def startRegistrationProcess(self, user, dmChannel):
-        fakeMessage = type('obj', (object,), {'author': user, 'channel': dmChannel})
-        messageToReturn = await registerUserDirect(self, self.bot, self.client, fakeMessage, self.userState)
-        if messageToReturn:
-            await dmChannel.send(messageToReturn)

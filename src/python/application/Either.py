@@ -11,8 +11,8 @@ class Either:
     def Failure(cls, value):
         return cls(value, True)
 
-    def is_success(self):
+    def isSuccess(self):
         return not self.is_error
 
-    def is_failure(self):
+    def isFailure(self):
         return self.is_error

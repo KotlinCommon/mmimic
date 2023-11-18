@@ -3,7 +3,7 @@ import asyncio
 from src.python.domain.events.InteractiveSession import InteractiveSession
 from src.python.domain.message.Message import Message
 from src.python.domain.message.Question import Question
-from src.python.domain.network.user.RegisterUser import registerUser
+from src.python.domain.network.user.SignUpUser import signUpUser
 from src.python.domain.network.user.User import User
 
 
@@ -20,7 +20,7 @@ async def registerUserDirect(self, bot, client, message, userState):
             elif index == 1:
                 user.email = response  # Second response is email
 
-        registerUser(client, user)
+        signUpUser(client, user)
         return Message.RegistrationComplete
 
     else:

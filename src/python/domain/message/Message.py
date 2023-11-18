@@ -14,10 +14,13 @@ class Message(Enum):
     # Messages related to FunCommands
     PingResponse = "Pong!"
 
+    # Messages related to signUp User
+    RegistrationComplete = "Registration complete. Thank you!"
+    AlreadyRegistered = "You are already registered"
+
     # Messages related to Direct
     CanIHelpYou = "how can I help you ?"
     ForRegister = "for register send : register"
-    RegistrationComplete = "Registration complete. Thank you!"
     TookLongToRespond = "You took too long to respond."
     InvalidInput = "Invalid input: {input}. Please try again."
 

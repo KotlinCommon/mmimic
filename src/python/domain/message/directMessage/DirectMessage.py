@@ -1,7 +1,5 @@
-import discord
-
-from src.python.domain.events.directMessage.RegisterUserDirect import registerUserDirect
 from src.python.domain.message.Message import Message
+from src.python.domain.message.directMessage.RegisterUserDirect import registerUserDirect
 
 
 class DirectMessage:
