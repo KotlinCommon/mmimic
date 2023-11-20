@@ -13,4 +13,3 @@ class Commands:
         await self.bot.add_cog(GeneralCommands(self.bot, self.client, self.userState))
         await self.bot.add_cog(GameCommands(self.bot, self.client, self.userState))
         await self.bot.add_cog(FunCommands(self.bot))
-

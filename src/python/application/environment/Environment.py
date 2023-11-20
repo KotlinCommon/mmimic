@@ -10,6 +10,7 @@ class Environment:
     urlBackend: str
     identifier: str
     password: str
+    roomName: str
 
     @staticmethod
     def load():
@@ -19,12 +20,13 @@ class Environment:
         urlBackend = os.getenv('URL_BACKEND')
         identifier = os.getenv('IDENTIFIER')
         password = os.getenv('PASSWORD')
-
+        roomName = "storyteller"
         return Environment(
             tokenBotDiscord=tokenBotDiscord,
             openAIApiKey=openAIApiKey,
             openAIAssistantId=openAIAssistantId,
             urlBackend=urlBackend,
             identifier=identifier,
-            password=password
+            password=password,
+            roomName=roomName
         )

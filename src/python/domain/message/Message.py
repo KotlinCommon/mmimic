@@ -7,6 +7,7 @@ class Message(Enum):
 
     # Messages related to Events
     DirectMsgReceived = "Received your message:"
+    PleaseUseRoom = "Please use the '{input}' room for your messages."
 
     # Messages related to GeneralCommands
     DiceRollInvalidSides = "The number of sides must be at least 1."
@@ -42,3 +43,8 @@ class Message(Enum):
     def formatInvalidInput(inputContent):
         """Formats the invalid input message."""
         return Message.InvalidInput.value.format(input=inputContent)
+
+    @staticmethod
+    def formatPleaseUseRoomInput(inputContent):
+        """Formats the invalid input message."""
+        return Message.PleaseUseRoom.value.format(input=inputContent)
