@@ -13,11 +13,12 @@ class GeneralCommands(commands.Cog, name="General Commands"):
 
     @commands.command(name='register')
     async def register(self, ctx):
+        """- Register the discord user in the database"""
         await ctx.send(await registerUser(self, self.bot, self.client, self.userState, ctx.message))
 
     @commands.command(name='rollDice')
     async def rollDice(self, ctx, sides: int = 6):
-        """Rolls a dice with a specified number of sides."""
+        """- Rolls a dice with a specified number of sides."""
         roll = rollDice(sides)
         if roll is None:
             await ctx.send(Message.DiceRollInvalidSides)

@@ -3,6 +3,7 @@ from enum import Enum
 
 class Message(Enum):
     Error = "An error occurred:"
+    InProduction = "In production"
 
     # Messages related to Events
     DirectMsgReceived = "Received your message:"

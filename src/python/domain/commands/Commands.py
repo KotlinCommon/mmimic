@@ -1,3 +1,4 @@
+from src.python.domain.commands.game.GameCommands import GameCommands
 from src.python.domain.commands.GeneralCommands import GeneralCommands
 from src.python.domain.commands.FunCommands import FunCommands
 
@@ -10,6 +11,6 @@ class Commands:
 
     async def registerCommands(self):
         await self.bot.add_cog(GeneralCommands(self.bot, self.client, self.userState))
+        await self.bot.add_cog(GameCommands(self.bot, self.client, self.userState))
         await self.bot.add_cog(FunCommands(self.bot))
 
-    # Example command using MessageType
