@@ -22,8 +22,10 @@ class MimicBot:
         self.client.bearerToken = self.authenticateBot()
 
         self.bot = commands.Bot(command_prefix=commandPrefix, intents=setupIntents())
+        self.bot.activeAdventureSessions = {}
+        self.bot.environment = self.environment
         self.userState = UserState()
-        self.events = Events(self.environment, self.bot, self.client, self.userState)
+        self.events = Events(self.bot, self.client, self.userState)
         self.commands = Commands(self.bot, self.client, self.userState)
 
     def authenticateBot(self):
