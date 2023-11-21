@@ -19,8 +19,8 @@ class Events:
         async def on_message(message):
             if message.author == self.bot.user:  # Ignore messages sent by the bot itself
                 return
-            session_user_id = self.bot.activeAdventureSessions.get(message.channel.id)
-            if session_user_id and message.author.id != session_user_id:
+            sessionUserId = self.bot.activeAdventureSessions.get(message.channel.id)
+            if sessionUserId and message.author.id != sessionUserId:
                 return
 
             if message.content.startswith(self.bot.command_prefix):

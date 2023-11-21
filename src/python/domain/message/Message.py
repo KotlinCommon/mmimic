@@ -8,6 +8,10 @@ class Message(Enum):
     # Messages related to Events
     DirectMsgReceived = "Received your message:"
     PleaseUseRoom = "Please use the '{input}' room for your messages."
+    AdventureAlreadyActive = "A Adventure session is already active in this channel."
+    AdventureStarted = " has started a new story session."
+    AdventureEnd = "Your story session has ended."
+    AdventureNotActive = "You do not have an active story session in this channel."
 
     # Messages related to GeneralCommands
     DiceRollInvalidSides = "The number of sides must be at least 1."

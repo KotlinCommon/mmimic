@@ -2,6 +2,8 @@ import discord
 from discord.ext import commands
 
 from src.python.domain.message.Message import Message
+from src.python.domain.network.user.GetUser import getUser
+from src.python.domain.network.user.User import User
 
 
 class AdventureCommand(commands.Cog):
@@ -23,27 +25,34 @@ class AdventureCommand(commands.Cog):
     async def adventures(self, ctx):
         await ctx.send(Message.InProduction)
 
-    @commands.command(name="startStory")
-    async def startStory(self, ctx):
-        channel_id = ctx.channel.id
-        user_id = ctx.author.id
-        if channel_id in self.bot.activeAdventureSessions:
-            await ctx.send("A story session is already active in this channel.")
-            return
-        self.bot.activeAdventureSessions[channel_id] = user_id
-        await ctx.send(f"{ctx.author.mention} has started a new story session.")
+    @commands.command(name="startAdventure")
+    async def startAdventure(self, ctx):
+        channelId = ctx.channel.id
+        userId = ctx.author.id
 
-    @commands.command(name="endStory")
-    async def endStory(self, ctx):
-        channel_id = ctx.channel.id
-        user_id = ctx.author.id
+        # Check if user is registered
+        verifyRegister = getUser(self.client, userId)
+        if not verifyRegister:
+            await ctx.send("You need to register before starting a story session. send {!register}")
+            return
+
+        if channelId in self.bot.activeAdventureSessions:
+            await ctx.send(Message.AdventureAlreadyActive)
+            return
+        self.bot.activeAdventureSessions[channelId] = userId
+        await ctx.send(f"{ctx.author.mention} {Message.AdventureStarted}")
+
+    @commands.command(name="endAdventure")
+    async def endAdventure(self, ctx):
+        channelId = ctx.channel.id
+        userId = ctx.author.id
 
         # Check if this user has an active session in this channel
-        if self.bot.activeAdventureSessions.get(channel_id) == user_id:
-            del self.bot.activeAdventureSessions[channel_id]
-            await ctx.send("Your story session has ended.")
+        if self.bot.activeAdventureSessions.get(channelId) == userId:
+            del self.bot.activeAdventureSessions[channelId]
+            await ctx.send(Message.AdventureEnd)
         else:
-            await ctx.send("You do not have an active story session in this channel.")
+            await ctx.send(Message.AdventureNotActive)
 
     async def getAdventureGroup(self):
         return self.adventure
