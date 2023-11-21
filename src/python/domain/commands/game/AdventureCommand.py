@@ -33,12 +33,12 @@ class AdventureCommand(commands.Cog):
             await ctx.send(f"{Message.NeedRegister}")
             return
 
-        if self.activeSession.get_session_user(channelId):
+        if self.activeSession.getSessionUser(channelId):
             await ctx.send(Message.AdventureAlreadyActive)
             return
 
-        self.activeSession.start_session(channelId, user)
-        print(f"{self.activeSession.get_session_user(channelId)}")
+        self.activeSession.startSession(channelId, user)
+        print(f"{self.activeSession.getSessionUser(channelId)}")
         await ctx.send(f"{ctx.author.mention} {Message.AdventureStarted}")
 
     @commands.command(name="endAdventure")
@@ -46,8 +46,8 @@ class AdventureCommand(commands.Cog):
         channelId = ctx.channel.id
         print(f"{self.activeSession}")
 
-        if self.activeSession.get_session_user(channelId):
-            self.activeSession.end_session(channelId)
+        if self.activeSession.getSessionUser(channelId):
+            self.activeSession.endSession(channelId)
             await ctx.send(Message.AdventureEnd)
         else:
             await ctx.send(Message.AdventureNotActive)

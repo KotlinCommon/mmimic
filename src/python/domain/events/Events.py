@@ -22,7 +22,7 @@ class Events:
             if message.author == self.bot.user:  # Ignore messages sent by the bot itself
                 return
 
-            sessionUser = self.activeSession.get_session_user(message.channel.id)
+            sessionUser = self.activeSession.getSessionUser(message.channel.id)
             if sessionUser and message.author.id != sessionUser.discordId:
                 return
 
