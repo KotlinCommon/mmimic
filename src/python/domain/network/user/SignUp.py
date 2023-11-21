@@ -9,7 +9,6 @@ def signUp(client, user):
     response = client.put(EndPoint.SignUp, user.serializable())
 
     if response.is_success():
-        print(f"{response}")
         return Either.Success(True)
     else:
         print(f"{response.value}")

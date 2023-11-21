@@ -12,6 +12,7 @@ class Message(Enum):
     AdventureStarted = " has started a new story session."
     AdventureEnd = "Your story session has ended."
     AdventureNotActive = "You do not have an active story session in this channel."
+    NeedRegister = "You need to register before starting a story session. send [ !register ]"
 
     # Messages related to GeneralCommands
     DiceRollInvalidSides = "The number of sides must be at least 1."
