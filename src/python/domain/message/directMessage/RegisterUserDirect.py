@@ -1,8 +1,8 @@
 from src.python.domain.events.InteractiveSession import InteractiveSession
 from src.python.domain.message.Message import Message
 from src.python.domain.message.question.Question import Question
-from src.python.domain.network.user.SignUp import signUp
-from src.python.domain.network.user.User import User
+from src.python.domain.user.SignUp import signUp
+from src.python.domain.user.User import User
 
 
 async def registerUserDirect(self, bot, client, message, userState):

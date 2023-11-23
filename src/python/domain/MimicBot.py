@@ -9,8 +9,8 @@ from src.python.domain.commands.Commands import Commands
 
 from src.python.application.client.Client import Client
 from src.python.domain.events.UserState import UserState
-from src.python.domain.network.authenticate.Authenticate import authenticate
-from src.python.domain.network.authenticate.Credential import Credential
+from src.python.domain.authenticate.Authenticate import authenticate
+from src.python.domain.authenticate.Credential import Credential
 
 
 class MimicBot:

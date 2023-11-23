@@ -1,4 +1,4 @@
-from src.python.domain.commands.game.GameCommands import GameCommands
+from src.python.domain.commands.GameCommands import GameCommands
 from src.python.domain.commands.GeneralCommands import GeneralCommands
 from src.python.domain.commands.FunCommands import FunCommands
 

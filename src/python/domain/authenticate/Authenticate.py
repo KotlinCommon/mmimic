@@ -1,5 +1,5 @@
 from src.python.domain.message.ErrorMessage import ErrorMessage
-from src.python.domain.network.EndPoint import EndPoint
+from src.python.domain.EndPoint import EndPoint
 
 
 def authenticate(client, credentials):

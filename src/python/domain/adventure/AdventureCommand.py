@@ -1,10 +1,9 @@
-import discord
 from discord.ext import commands
 
 from src.python.domain.adventure.AdventureSession import AdventureSession
+from src.python.domain.character.GetCharacters import getCharacters
 from src.python.domain.message.Message import Message
-from src.python.domain.network.user.GetUser import getUser
-from src.python.domain.network.user.User import User
+from src.python.domain.user.GetUser import getUser
 
 
 class AdventureCommand(commands.Cog):
@@ -23,8 +22,8 @@ class AdventureCommand(commands.Cog):
         if ctx.invoked_subcommand is None:
             await ctx.send("Available subcommands: list")
 
-    @commands.command(name="startAdventure")
-    async def startAdventure(self, ctx):
+    @commands.command(name="start")
+    async def start(self, ctx):
         channelId = ctx.channel.id
         userId = ctx.author.id
 
@@ -37,12 +36,11 @@ class AdventureCommand(commands.Cog):
             await ctx.send(Message.AdventureAlreadyActive)
             return
 
-        self.activeSession.startSession(channelId, user)
-        print(f"{self.activeSession.getSessionUser(channelId)}")
         await ctx.send(f"{ctx.author.mention} {Message.AdventureStarted}")
+        await self.activeSession.startSession(ctx, channelId, user, self.bot, self.client)
 
-    @commands.command(name="endAdventure")
-    async def endAdventure(self, ctx):
+    @commands.command(name="end")
+    async def end(self, ctx):
         channelId = ctx.channel.id
         print(f"{self.activeSession}")
 

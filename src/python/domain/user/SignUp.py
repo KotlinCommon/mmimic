@@ -1,5 +1,5 @@
 from src.python.application.Either import Either
-from src.python.domain.network.EndPoint import EndPoint
+from src.python.domain.EndPoint import EndPoint
 
 
 def signUp(client, user):
