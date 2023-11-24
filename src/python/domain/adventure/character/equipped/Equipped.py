@@ -12,6 +12,8 @@ class Equipped:
     weaponId: int
     ringId: int
     amuletId: int
+    createAt: str
+    updateAt: str
 
     def serializable(self):
         return asdict(self)

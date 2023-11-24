@@ -1,8 +1,8 @@
 from typing import List
 
 from src.python.domain.EndPoint import EndPoint
-from src.python.domain.character.Character import Character
-from src.python.domain.character.equipped.Equipped import Equipped
+from src.python.domain.adventure.character.Character import Character
+from src.python.domain.adventure.character.equipped.Equipped import Equipped
 
 
 def getCharacters(client, userId) -> List[Character]:
@@ -24,7 +24,9 @@ def getCharacters(client, userId) -> List[Character]:
                     bootId=equippedData.get('bootId', 0),
                     weaponId=equippedData.get('weaponId', 0),
                     ringId=equippedData.get('ringId', 0),
-                    amuletId=equippedData.get('amuletId', 0)
+                    amuletId=equippedData.get('amuletId', 0),
+                    createAt=equippedData.get('createAt', 0),
+                    updateAt=equippedData.get('updateAt', 0)
                 )
             else:
                 equipped = None  # Or some default Equipped object
@@ -35,7 +37,9 @@ def getCharacters(client, userId) -> List[Character]:
                 name=charData['name'],
                 backstory=charData['backstory'],
                 storiesIdentifier=charData['storiesIdentifier'],
-                equipped=equipped
+                equipped=equipped,
+                createAt=charData['createAt'],
+                updateAt=charData['updateAt'],
             )
             characters.append(character)
         return characters

@@ -1,9 +1,8 @@
 from discord.ext import commands
 
 from src.python.domain.adventure.AdventureSession import AdventureSession
-from src.python.domain.character.GetCharacters import getCharacters
 from src.python.domain.message.Message import Message
-from src.python.domain.user.GetUser import getUser
+from src.python.domain.network.GetUser import getUser
 
 
 class AdventureCommand(commands.Cog):
@@ -42,8 +41,6 @@ class AdventureCommand(commands.Cog):
     @commands.command(name="end")
     async def end(self, ctx):
         channelId = ctx.channel.id
-        print(f"{self.activeSession}")
-
         if self.activeSession.getSessionUser(channelId):
             self.activeSession.endSession(channelId)
             await ctx.send(Message.AdventureEnd)

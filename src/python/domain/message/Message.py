@@ -25,6 +25,21 @@ class Message(Enum):
     RegistrationComplete = "Registration complete. Thank you!"
     AlreadyRegistered = "You are already registered"
 
+    # Messages related to Character Selection
+    CharacterList = "Your characters:\n{characterList}\n\n **Type the number of the character you want to choose, or type 'new' to create a new character.**"
+    InvalidCharacterChoice = "Invalid choice. Please choose a valid character number or type 'new'."
+    StartAdventurePrompt = "Type 'start' to begin your adventure with this character, or 'change' to choose another character."
+    CharacterSelectedInfo = "Character Picked: {selectedCharacter}\n..."
+    StartAdventureConfirmation = "Starting your adventure..."
+
+    # Messages related to Character Creation
+    EnterCharacterName = "Enter the name of your new character:"
+    EnterCharacterBackstory = "Enter the backstory for your character:"
+    ConfirmCharacterCreation = "Character Name: {name}\nBackstory: {backstory}\nType 'save' to confirm or 'redo' to start over."
+    CharacterCreatedSuccess = "Character created successfully! \n Starting your adventure..."
+    CharacterCreationFailed = "Failed to create character. Please try again."
+    InvalidCreationResponse = "Invalid response. Character creation restart."
+
     # Messages related to Direct
     CanIHelpYou = "how can I help you ?"
     ForRegister = "for register send : register"
@@ -53,3 +68,18 @@ class Message(Enum):
     def formatPleaseUseRoomInput(inputContent):
         """Formats the invalid input message."""
         return Message.PleaseUseRoom.value.format(input=inputContent)
+
+    @staticmethod
+    def formatCharacterList(characterList):
+        """Formats the character list message."""
+        return Message.CharacterList.value.format(characterList=characterList)
+
+    @staticmethod
+    def formatCharacterSelectedInfo(selectedCharacter):
+        """Formats the character selected info message."""
+        return Message.CharacterSelectedInfo.value.format(selectedCharacter=selectedCharacter)
+
+    @staticmethod
+    def formatConfirmCharacterCreation(name, backstory):
+        """Formats the confirm character creation message."""
+        return Message.ConfirmCharacterCreation.value.format(name=name, backstory=backstory)

@@ -1,5 +1,4 @@
-from src.python.domain.character.GetCharacters import getCharacters
-from src.python.domain.message.Message import Message
+from src.python.domain.adventure.character.CharacterSelector import selectCharacter
 
 
 class AdventureSession:
@@ -7,26 +6,18 @@ class AdventureSession:
         self.sessions = {}
         self.client = None
         self.bot = None
+        self.isEnding = False
 
     async def startSession(self, ctx, channelId, user, bot, client):
-        self.sessions[channelId] = user
+        self.sessions[channelId] = {"user": user}
         self.client = client
         self.bot = bot
-
-        await self.showUserCharacters(ctx, user.id)
-
-    async def showUserCharacters(self, ctx, userId):
-        print(userId)
-        userCharacters = getCharacters(self.client, userId)  # Updated to use bot directly
-        if userCharacters:
-            characterList = '\n'.join([f"{char.id}: {char.name}" for char in userCharacters])
-            await ctx.send(f"Your characters:\n{characterList}")
-        else:
-            await ctx.send("You have no characters. Use the command to create a new one.")
+        await selectCharacter(self, ctx, user.id)
 
     def endSession(self, channelId):
         if channelId in self.sessions:
             del self.sessions[channelId]
+            self.isEnding = True
 
     def isSessionActive(self, channelId):
         return self.sessions.get(channelId)
