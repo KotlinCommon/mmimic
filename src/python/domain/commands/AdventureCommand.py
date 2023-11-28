@@ -6,11 +6,8 @@ from src.python.domain.network.GetUser import getUser
 
 
 class AdventureCommand(commands.Cog):
-    def __init__(self, bot, client, userState):
+    def __init__(self, bot):
         self.bot = bot
-        self.client = client
-        self.userState = userState
-        self.activeSession = AdventureSession()
 
     @commands.group(
         name='adventure',
@@ -26,17 +23,12 @@ class AdventureCommand(commands.Cog):
         channelId = ctx.channel.id
         userId = ctx.author.id
 
-        user = getUser(self.client, userId)
-        if user is None:
-            await ctx.send(f"{Message.NeedRegister}")
-            return
-
         if self.activeSession.getSessionUser(channelId):
             await ctx.send(Message.AdventureAlreadyActive)
             return
 
         await ctx.send(f"{ctx.author.mention} {Message.AdventureStarted}")
-        await self.activeSession.startSession(ctx, channelId, user, self.bot, self.client)
+        await self.activeSession.startSession(ctx, channelId, self.bot)
 
     @commands.command(name="end")
     async def end(self, ctx):

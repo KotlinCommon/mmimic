@@ -1,15 +1,10 @@
-from src.python.domain.adventure.AdventureSession import AdventureSession
-from src.python.domain.events.guild.CreateRoom import createRoom
+from src.python.domain.guild.CreateRoom import createRoom
 from src.python.domain.message.Message import Message
 
 
 class Events:
-    def __init__(self, bot, client, userState):
+    def __init__(self, bot):
         self.bot = bot
-        self.client = client
-        self.userState = userState
-        self.activeSession = AdventureSession()
-        # self.directMessage = DirectMessage(self.bot, self.client, self.userState)
         self.registerEvents()
 
     def registerEvents(self):
@@ -20,10 +15,6 @@ class Events:
         @self.bot.event
         async def on_message(message):
             if message.author == self.bot.user:  # Ignore messages sent by the bot itself
-                return
-
-            sessionUser = self.activeSession.getSessionUser(message.channel.id)
-            if sessionUser and message.author.id != sessionUser.discordId:
                 return
 
             if message.content.startswith(self.bot.command_prefix):

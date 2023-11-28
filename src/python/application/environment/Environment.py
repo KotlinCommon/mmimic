@@ -6,27 +6,18 @@ from dataclasses import dataclass
 class Environment:
     tokenBotDiscord: str
     openAIApiKey: str
-    openAIAssistantId: str
-    urlBackend: str
-    identifier: str
-    password: str
     roomName: str
+    serverId: int
 
     @staticmethod
     def load():
         tokenBotDiscord = os.getenv('TOKEN_BOT_DISCORD')
         openAIApiKey = os.getenv('OPENIA_API_KEY')
-        openAIAssistantId = os.getenv('GPT_ASSISTANT_ID')
-        urlBackend = os.getenv('URL_BACKEND')
-        identifier = os.getenv('IDENTIFIER')
-        password = os.getenv('PASSWORD')
         roomName = "storyteller"
+        serverId = os.getenv('SERVER_ID')
         return Environment(
             tokenBotDiscord=tokenBotDiscord,
             openAIApiKey=openAIApiKey,
-            openAIAssistantId=openAIAssistantId,
-            urlBackend=urlBackend,
-            identifier=identifier,
-            password=password,
-            roomName=roomName
+            roomName=roomName,
+            serverId=serverId
         )
