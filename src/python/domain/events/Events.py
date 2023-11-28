@@ -1,4 +1,3 @@
-from src.python.domain.guild.CreateRoom import createRoom
 from src.python.domain.message.Message import Message
 
 
@@ -14,18 +13,21 @@ class Events:
 
         @self.bot.event
         async def on_message(message):
-            if message.author == self.bot.user:  # Ignore messages sent by the bot itself
-                return
+            await self.processMessage(message)
 
-            if message.content.startswith(self.bot.command_prefix):
-                author = message.author
-                channel = message.channel
-                userId = author.id
-                if channel.name != self.bot.environment.roomName:
-                    await channel.send(Message.PleaseUseRoom.formatPleaseUseRoomInput(self.bot.environment.roomName))
-                print(userId, " - ", author, "in channel (", channel, ") send Message:", message.content)
-                await self.bot.process_commands(message)
+            author = message.author
+            channel = message.channel
+            userId = author.id
 
-        @self.bot.event
-        async def on_guild_join(guild):
-            await createRoom(guild, self.bot.environment.roomName)
+            print(userId, " - ", author, "in channel (", channel, ") send Message:", message.content)
+
+    async def processMessage(self, message):
+        if message.author == self.bot.user:  # Ignore messages sent by the bot itself
+            return
+
+        if message.guild.id == self.bot.environment.serverId:
+            await self.bot.process_commands(message)
+            return
+        else:
+            await message.channel.send(Message.AllowedServer)
+            return

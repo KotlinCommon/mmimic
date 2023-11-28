@@ -14,7 +14,7 @@ class Environment:
         tokenBotDiscord = os.getenv('TOKEN_BOT_DISCORD')
         openAIApiKey = os.getenv('OPENIA_API_KEY')
         roomName = "storyteller"
-        serverId = os.getenv('SERVER_ID')
+        serverId = 1179050345645744199
         return Environment(
             tokenBotDiscord=tokenBotDiscord,
             openAIApiKey=openAIApiKey,
