@@ -9,6 +9,12 @@ class Message(Enum):
     # Messages related to FunCommands
     PingResponse = "Pong!"
 
+    # Messages related to Events
+    AdventureNotActive = "You do not have an active story session in this channel."
+    AdventureStarted = " has started a new story session."
+    AdventureEnd = "Your story session has ended."
+    AdventureAlreadyActive = "A Adventure session is already active in this channel."
+
     def __str__(self):
         return self.value
 
