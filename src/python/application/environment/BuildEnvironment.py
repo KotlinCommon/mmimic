@@ -1,6 +1,7 @@
 import os
 from dotenv import load_dotenv
 
+
 def buildEnvironment():
     projectRoot = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..', '..'))
     dockerEnvDevPath = os.path.join(projectRoot, '.docker', '.env.dev')

@@ -1,4 +1,8 @@
+import asyncio
+
 from discord.ext import commands
+
+from src.python.domain.message.Message import Message
 
 
 class Events(commands.Cog):
@@ -20,9 +24,16 @@ class Events(commands.Cog):
             return
 
         # Check if there is an active adventure session
-        if self.bot.adventure_sessions.isSessionActive(message.guild.id, message.channel.id):
-            session_starter_id = self.bot.adventure_sessions.getSessionStarter(message.guild.id, message.channel.id)
-
-            # If the message author is not the session starter, delete the message
-            if message.author.id != session_starter_id:
+        if self.bot.adventureSessions.isSessionActive(message.guild.id, message.channel.id):
+            sessionStarterId = self.bot.adventureSessions.getSessionStarter(message.guild.id, message.channel.id)
+            if message.author.id != sessionStarterId:
                 await message.delete()
+                # notification = f"{message.author.mention}, you are not part of the current adventure session."
+                # await message.channel.send(notification)
+                return  # Skip processing this message further
+
+            gptClient = self.bot.adventureSessions.getGPTClient(message.guild.id, message.channel.id)
+            if gptClient:
+                loadingMessage = await message.channel.send(Message.AdventureProcessing)
+                response = await gptClient.getResponse(message.content)
+                await loadingMessage.edit(content=response)

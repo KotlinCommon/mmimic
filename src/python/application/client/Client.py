@@ -39,8 +39,8 @@ class Client:
             else:
                 return Response(value=response.text, headers=response.headers)
 
-        except requests.HTTPError as http_err:
-            errorMessage = str(http_err)
+        except requests.HTTPError as httpErr:
+            errorMessage = str(httpErr)
         except Exception as err:
             errorMessage = str(err)
 
