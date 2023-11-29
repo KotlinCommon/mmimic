@@ -15,6 +15,7 @@
 ```bash
 python -m src.python.application.main
 ```
+
  - --------------------------------------------------
 
 ## Docker

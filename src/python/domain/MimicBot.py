@@ -16,7 +16,7 @@ class MimicBot:
         self.environment = Environment.load()
 
         self.bot = commands.Bot(command_prefix=commandPrefix, intents=setupIntents())
-        self.bot.adventureSessions = AdventureSession(self.environment)
+        self.bot.adventureSessions = AdventureSession(self.bot, self.environment)
         self.bot.environment = self.environment
 
         self.commands = Commands(self.bot)
