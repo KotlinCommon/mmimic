@@ -13,7 +13,7 @@
  - --------------------------------------------------
 
 ```bash
-python -m src.python.application.Application
+python -m src.python.application.main
 ```
  - --------------------------------------------------
 
