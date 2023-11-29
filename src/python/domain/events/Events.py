@@ -34,6 +34,36 @@ class Events(commands.Cog):
 
             gptClient = self.bot.adventureSessions.getGPTClient(message.guild.id, message.channel.id)
             if gptClient:
+                await self.restrictChannelPermissions(message.channel)
                 loadingMessage = await message.channel.send(Message.AdventureProcessing)
-                response = await gptClient.getResponse(message.content)
+                # Update conversation history with the user's message
+                self.bot.adventureSessions.updateConversationHistory(
+                    message.guild.id, message.channel.id, {"role": "user", "content": message.content}
+                )
+
+                # Access the conversation history directly from the session
+                session_data = self.bot.adventureSessions.activeSessions.get((message.guild.id, message.channel.id), {})
+                conversationHistory = session_data.get("conversationHistory", [])
+
+                # Get GPT response
+                response = await gptClient.getResponse(conversationHistory, message.content)
+
+                # Update conversation history with the bot's response
+                self.bot.adventureSessions.updateConversationHistory(
+                    message.guild.id, message.channel.id, {"role": "system", "content": response}
+                )
+
                 await loadingMessage.edit(content=response)
+                await self.restoreChannelPermissions(message.channel)
+
+    async def restrictChannelPermissions(self, channel):
+        try:
+            await channel.set_permissions(channel.guild.default_role, send_messages=False)
+        except Exception as e:
+            print(f"Failed to restrict channel permissions: {e}")
+
+    async def restoreChannelPermissions(self, channel):
+        try:
+            await channel.set_permissions(channel.guild.default_role, send_messages=True)
+        except Exception as e:
+            print(f"Failed to restore channel permissions: {e}")
